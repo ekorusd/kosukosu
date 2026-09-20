@@ -29,11 +29,17 @@
                 <span class="bg-brandRed text-white text-xs font-bold px-2 py-1 rounded">コスコス</span>
                 <span class="text-xl font-black tracking-tight text-brandDark">KosuKosu</span>
             </div>
+            
+            <!-- DUA LINK MENU (Fitur, Katalog, Owner, Event) HARUS ADA DI DALAM DIV INI -->
             <div class="hidden md:flex items-center gap-6 text-sm font-medium">
                 <a href="#fitur" class="hover:text-brandRed transition">Fitur Keamanan</a>
                 <a href="#katalog" class="hover:text-brandRed transition">Contoh Katalog</a>
                 <a href="#owner" class="hover:text-brandRed transition">Jadi Owner</a>
+                <a href="#event" class="hover:text-brandRed transition flex items-center gap-1">
+                    📅 Event Anime <span class="bg-rose-100 text-brandRed text-[10px] font-bold px-1.5 py-0.5 rounded-full">New</span>
+                </a>
             </div>
+
             <a href="#owner" class="bg-brandRed hover:bg-rose-600 text-white text-sm font-bold px-4 py-2 rounded-xl shadow-md shadow-rose-200 transition">
                 Daftar Owner
             </a>
@@ -214,6 +220,88 @@
                     </div>
                     <button type="submit" class="w-full bg-brandRed hover:bg-rose-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-rose-900/50 transition">
                         Daftarkan Kostum Saya ✨
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<!-- SECTION EVENT ANIME & SUBMIT EVENT -->
+    <section id="event" class="py-16 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <span class="text-brandRed text-xs font-bold uppercase tracking-wider">Komunitas & Agenda</span>
+                <h2 class="text-2xl md:text-3xl font-black text-brandDark mt-1">Kalender Event Cosplay Lokal</h2>
+                <p class="text-slate-500 text-sm mt-1">Cek jadwal event anime terdekat atau submit event buatanmu!</p>
+            </div>
+
+            <!-- GRID EVENT (DAFTAR EVENT TERJADWAL) -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Sample Event Card 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="bg-rose-100 text-brandRed font-bold text-xs px-2.5 py-1 rounded-lg">OCT 2026</span>
+                        <span class="text-xs text-slate-400 font-medium">📍 Yogyakarta</span>
+                    </div>
+                    <h3 class="font-bold text-brandDark text-base mb-1">Jogja Japan Festival 2026</h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">Lomba Cosplay, Anisong Competition, & Pop Culture Exhibition.</p>
+                    <a href="#katalog" class="text-xs font-bold text-brandRed hover:underline flex items-center gap-1">
+                        Cari Kostum Untuk Event Ini →
+                    </a>
+                </div>
+
+                <!-- Sample Event Card 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="bg-rose-100 text-brandRed font-bold text-xs px-2.5 py-1 rounded-lg">NOV 2026</span>
+                        <span class="text-xs text-slate-400 font-medium">📍 Sleman</span>
+                    </div>
+                    <h3 class="font-bold text-brandDark text-base mb-1">Cosplay Gathering & Contest</h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">Gathering komunitas cosplayer lokal & mini parade character.</p>
+                    <a href="#katalog" class="text-xs font-bold text-brandRed hover:underline flex items-center gap-1">
+                        Cari Kostum Untuk Event Ini →
+                    </a>
+                </div>
+
+                <!-- Card Ajakan Submit Event -->
+                <div class="bg-gradient-to-br from-brandSoft to-white p-5 rounded-2xl border border-rose-200 border-dashed flex flex-col justify-center items-center text-center">
+                    <div class="w-10 h-10 bg-rose-100 text-brandRed rounded-full flex items-center justify-center font-bold text-lg mb-2">➕</div>
+                    <h3 class="font-bold text-brandDark text-sm mb-1">Punya Event Anime Sendiri?</h3>
+                    <p class="text-xs text-slate-500 mb-3">Promosikan event cosplay milikmu di KosuKosu secara GRATIS!</p>
+                    <a href="#submit-event" class="bg-brandDark text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-slate-800 transition">
+                        Tambah Event Kamu
+                    </a>
+                </div>
+            </div>
+
+            <!-- FORM SUBMIT EVENT OLEH PENGGUNA -->
+            <div id="submit-event" class="max-w-xl mx-auto bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-bold text-brandDark mb-1 text-center">Formulir Pengajuan Event Cosplay</h3>
+                <p class="text-xs text-slate-500 mb-6 text-center">Event yang kamu daftarkan akan ditinjau dan ditayangkan di kalender KosuKosu.</p>
+
+                <!-- Menggunakan Formspree yang sama atau terpisah -->
+                <form action="<form action="https://formspree.io/f/xaeneejv" method="POST" class="space-y-3">" method="POST" class="space-y-3">
+                    <input type="hidden" name="_subject" value="Pengajuan Event Baru di KosuKosu">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Nama Event</label>
+                        <input type="text" name="event_name" required placeholder="Contoh: Anime Party Sleman Vol. 2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brandRed">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Tanggal Event</label>
+                            <input type="date" name="event_date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brandRed">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Kota / Lokasi</label>
+                            <input type="text" name="event_location" required placeholder="Contoh: Yogyakarta" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brandRed">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Link Poster / Sosial Media Event</label>
+                        <input type="url" name="event_link" required placeholder="https://instagram.com/p/..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brandRed">
+                    </div>
+                    <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-3 rounded-xl transition mt-2">
+                        Kirim Event Untuk Ditolong Promosikan 🚀
                     </button>
                 </form>
             </div>
