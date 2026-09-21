@@ -64,9 +64,9 @@
                 <a href="#owner" class="bg-brandRed hover:bg-rose-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-rose-200 transition flex items-center justify-center gap-2">
                     🎭 Titip Sewa Kostum (Owner)
                 </a>
-                <a href="#waitlist" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold px-6 py-3.5 rounded-xl shadow-sm transition flex items-center justify-center gap-2">
-                    🔍 Cari Kostum Terdekat
-                </a>
+                <button onclick="openWaitlistModal()" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold px-6 py-3.5 rounded-xl shadow-sm transition flex items-center justify-center gap-2 cursor-pointer">
+    🔍 Cari Kostum Terdekat
+</button>
             </div>
         </div>
     </section>
@@ -393,5 +393,96 @@
 
         document.addEventListener('DOMContentLoaded', loadEvents);
     </script>
+
+    <!-- MODAL WAITLIST PENYEWA -->
+    <div id="waitlist-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 md:p-8 shadow-2xl relative border border-slate-100 animate-in fade-in zoom-in duration-200">
+            <!-- Tombol Close -->
+            <button onclick="closeWaitlistModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold w-8 h-8 flex items-center justify-center rounded-full bg-slate-100">
+                ✕
+            </button>
+
+            <div class="text-center mb-6">
+                <span class="bg-rose-100 text-brandRed text-xs font-bold px-3 py-1 rounded-full">Early Access Waitlist</span>
+                <h3 class="text-xl font-black text-brandDark mt-3 mb-1">Cari Kostum Impianmu!</h3>
+                <p class="text-slate-500 text-xs">Belum menemukan kostum yang pas? Masukkan wishlist-mu, kami bantu hubungkan dengan owner terdekat.</p>
+            </div>
+
+            <form id="waitlist-form" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Nama Lengkap / Panggilan</label>
+                    <input type="text" id="wl_name" required placeholder="Contoh: Budi San" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brandRed">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Nomor WhatsApp / Telegram</label>
+                    <input type="tel" id="wl_whatsapp" required placeholder="081234567890" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brandRed">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Kota / Kecamatan Tinggal</label>
+                    <input type="text" id="wl_city" required placeholder="Contoh: Depok, Sleman" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brandRed">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Kostum Anime / Character Yang Dicari</label>
+                    <input type="text" id="wl_costume" required placeholder="Contoh: Zoro (Egghead Ver) Size L" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brandRed">
+                </div>
+                <button type="submit" id="btn-submit-wl" class="w-full bg-brandRed hover:bg-rose-600 text-white font-bold text-xs py-3.5 rounded-xl shadow-lg shadow-rose-200 transition mt-2">
+                    Ingatkan Saya Jika Kostum Tersedia ✨
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC MODAL WAITLIST -->
+    <script>
+        function openWaitlistModal() {
+            document.getElementById('waitlist-modal').classList.remove('hidden');
+        }
+
+        function closeWaitlistModal() {
+            document.getElementById('waitlist-modal').classList.add('hidden');
+        }
+
+        // Submit Waitlist ke Airtable Tabel 'Waitlist'
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-wl');
+            btn.innerText = "Mengirim...";
+            btn.disabled = true;
+
+            const WAITLIST_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/Waitlist`;
+
+            const payload = {
+                fields: {
+                    name: document.getElementById('wl_name').value,
+                    whatsapp: document.getElementById('wl_whatsapp').value,
+                    city: document.getElementById('wl_city').value,
+                    desired_costume: document.getElementById('wl_costume').value
+                }
+            };
+
+            fetch(WAITLIST_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(res => {
+                alert('🎉 Request diterima! Kami akan mengabari via WA begitu kostum tersebut tersedia di sekitarmu.');
+                this.reset();
+                btn.innerText = "Ingatkan Saya Jika Kostum Tersedia ✨";
+                btn.disabled = false;
+                closeWaitlistModal();
+            })
+            .catch(err => {
+                alert('Gagal mengirim request. Silakan coba lagi.');
+                btn.innerText = "Ingatkan Saya Jika Kostum Tersedia ✨";
+                btn.disabled = false;
+            });
+        });
+    </script>
+
 </body>
 </html>
